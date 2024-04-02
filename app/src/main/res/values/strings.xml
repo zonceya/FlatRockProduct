@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FlatRockProduct</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_image">Product Image</string>
+    <string name="product_name">Product Name</string>
+</resources>
