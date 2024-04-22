@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.flatrockproduct.R
 import com.example.flatrockproduct.databinding.ProductDetailsLayoutBinding
 import com.example.flatrockproduct.domain.product.ProductDetail
@@ -65,6 +66,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             // Load image using Glide
             Glide.with(this@ProductDetailsActivity)
                 .load(productDetail.thumbnail)
+                .transform(RoundedCorners(20))
                 .into(productThumbnail)
 
             // Bind other product details to UI elements

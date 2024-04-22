@@ -16,8 +16,6 @@ fun ProductDTO.toProduct(): Product? {
     )
     }
 }
-
-
 fun ProductDataDto.toProductDetail(): ProductDetail? {
     return  ProductDetail(
             id = id,

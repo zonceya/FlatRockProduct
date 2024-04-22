@@ -29,10 +29,10 @@ class ProductDetailViewModel @Inject constructor(
             _state.value = when (result) {
                 is Resource.Success -> {
                     val productDetail = result.data
-                    val productDetailsInfo = mapOf(0 to productDetail)?.let {
+                    val productDetailsInfo =  mapOf(productId to productDetail)?.let {
                         ProductDetailsInfo(
-                            productDetailsPerProduct = it, // Assuming the key is 0
-                            productList = null // Set to null or provide a product list if available
+                            productDetailsPerProduct = it,
+                            productList = null
                         )
                     }
                     ProductState(productDetailsInfo = productDetailsInfo, isLoading = false, error = null)
