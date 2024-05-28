@@ -2,55 +2,46 @@ package com.example.flatrockproduct.presentation.ui.product
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.flatrockproduct.domain.product.ProductDetail
 import com.example.flatrockproduct.databinding.ProductLayoutBinding
+import com.example.flatrockproduct.domain.product.ProductDetail
 import com.example.flatrockproduct.domain.product.ProductDetailsInfo
+import java.util.Locale
 
-class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ViewHolder>(), Filterable {
 
     private var productList = listOf<ProductDetail>()
+    private var originalProductList = listOf<ProductDetail>()
     private var onItemClick: ((ProductDetail) -> Unit)? = null
 
     fun setProductList(productDetailsInfo: ProductDetailsInfo) {
-        this.productList =
+        this.originalProductList =
             (productDetailsInfo.productList?.firstOrNull()?.products?.toList() ?: emptyList()) as List<ProductDetail>
+        this.productList = originalProductList
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(private val binding: ProductLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ProductLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         private var product: ProductDetail? = null
         private var secondProduct: ProductDetail? = null
+
         init {
-            // Set click listener for the root view of the ViewHolder
-            binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val clickedProduct = if (binding.productImage2 == it) secondProduct else product
-
-                    clickedProduct?.let { product ->
-                        onItemClick?.invoke(product)
-                    }
-                }
-            }
-
-            // Set click listener for productImage
             binding.productImage.setOnClickListener {
                 product?.let { product ->
                     onItemClick?.invoke(product)
                 }
             }
-
-            // Set click listener for productImage2
             binding.productImage2.setOnClickListener {
                 secondProduct?.let { product ->
                     onItemClick?.invoke(product)
                 }
             }
         }
+
         fun bind(product: ProductDetail, secondProduct: ProductDetail?) {
             this.product = product
             this.secondProduct = secondProduct
@@ -74,8 +65,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ProductLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ProductLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -93,5 +83,29 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
         val product1 = productList.getOrNull(product1Position)
         val product2 = productList.getOrNull(product2Position)
         holder.bind(product1!!, product2)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val queryString = constraint?.toString()?.toLowerCase(Locale.getDefault())
+                val filterResults = FilterResults()
+                filterResults.values = if (queryString.isNullOrEmpty()) {
+                    originalProductList
+                } else {
+                    originalProductList.filter { product ->
+                        product.brand?.lowercase(Locale.getDefault())?.contains(queryString) ?: false ||
+                                product.title?.toLowerCase(Locale.getDefault())?.contains(queryString) ?: false
+                    }
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                @Suppress("UNCHECKED_CAST")
+                productList = results?.values as List<ProductDetail>
+                notifyDataSetChanged()
+            }
+        }
     }
 }

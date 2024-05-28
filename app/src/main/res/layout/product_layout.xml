@@ -1,60 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/productImage"
         android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
+        android:layout_height="120dp"
+        android:contentDescription="@string/productimage"
         android:paddingStart="15dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/productName"
+        app:layout_constraintEnd_toStartOf="@id/productImage2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/productImage2"
-        app:layout_constraintBottom_toTopOf="@id/productName"
-        />
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/productName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingStart="45dp"
         android:maxLength="16"
         android:maxLines="2"
+        android:paddingStart="45dp"
         android:textAppearance="?android:textAppearanceSmall"
         app:layout_constraintBottom_toTopOf="@id/productImage"
         app:layout_constraintEnd_toStartOf="@id/productImage2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/productImage"
-        />
+        tools:ignore="RtlSymmetry" />
+
     <TextView
         android:id="@+id/price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:paddingStart="45dp"
-        android:paddingBottom="20dp"
         android:maxLength="16"
         android:maxLines="1"
-        app:layout_constraintTop_toBottomOf="@id/productName"
+        android:paddingStart="45dp"
+        android:paddingBottom="20dp"
+        android:textAppearance="?android:textAppearanceSmall"
+        app:layout_constraintEnd_toEndOf="@id/productImage"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/productName"
-        app:layout_constraintEnd_toEndOf="@id/productName" />
+        app:layout_constraintTop_toBottomOf="@id/productName"
+        tools:ignore="RtlSymmetry" />
 
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:button="@drawable/ic_favorite"
+        app:layout_constraintBottom_toBottomOf="@id/price"
+        app:layout_constraintStart_toEndOf="@id/price"
+        app:layout_constraintTop_toTopOf="@id/productName"
+        app:useMaterialThemeColors="false" />
 
     <ImageView
         android:id="@+id/productImage2"
         android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/productimage"
         android:paddingEnd="15dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/description2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/productImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/description2"
-        />
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/description2"
@@ -62,20 +78,32 @@
         android:layout_height="wrap_content"
         android:maxLength="16"
         android:maxLines="2"
-        app:layout_constraintStart_toEndOf="@id/productName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/description2"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/productName"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/price2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceSmall"
-        android:paddingBottom="20dp"
         android:maxLength="16"
         android:maxLines="1"
-        app:layout_constraintTop_toBottomOf="@id/description2"
+        android:paddingBottom="20dp"
+        android:layout_marginEnd="40dp"
+        android:textAppearance="?android:textAppearanceSmall"
+        app:layout_constraintEnd_toEndOf="@id/description2"
         app:layout_constraintStart_toStartOf="@id/description2"
-        app:layout_constraintEnd_toEndOf="@id/description2" />
+        app:layout_constraintTop_toBottomOf="@id/description2" />
+
+    <CheckBox
+        android:id="@+id/checkBo2x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:button="@drawable/ic_favorite"
+        app:layout_constraintBottom_toBottomOf="@id/price2"
+        app:layout_constraintEnd_toEndOf="@id/price2"
+        app:layout_constraintTop_toTopOf="@id/description2"
+        app:useMaterialThemeColors="false" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package com.example.flatrockproduct.domain.product
 
 data class ProductDetail(
-    val brand: String,
+    val brand: String?,
     val category: String,
     val description: String,
     val discountPercentage: Double,

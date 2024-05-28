@@ -2,10 +2,12 @@ package com.example.flatrockproduct.presentation.ui.productdetails
 
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -28,8 +30,14 @@ class ProductDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
         progressBar = findViewById(R.id.productDetailsProgressBar)
 
+       
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        // Handle the back button click
+
         // Initialize ViewModel
-        viewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
+        ViewModelProvider(this)[ProductDetailViewModel::class.java].also { viewModel = it }
         // Set up progress bar
         progressBar.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -60,7 +68,13 @@ class ProductDetailsActivity : AppCompatActivity() {
             return
         }
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
     private fun bindProductDetails(productDetail: ProductDetail) {
         with(binding) {
             // Load image using Glide
@@ -74,7 +88,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             productDescription.text = "Description: ${productDetail.description}"
             productBrand.text = "Brand: ${productDetail.brand}"
             productCategory.text = "Category: ${productDetail.category}"
-            productPrice.text = "Price: ${productDetail.price}"
+           // productPrice.text = "Price: ${productDetail.price}"
             productStock.text = "Stock: ${productDetail.stock}"
             productRating.text = "Rating: ${productDetail.rating}"
         }

@@ -24,8 +24,7 @@ class ProductViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = ProductState(isLoading = true, error = null)
 
-            val result = repository.getAllProduct()
-            when (result)  {
+            when (val result = repository.getAllProduct())  {
                 is Resource.Success -> {
                     val productDetailsInfo = ProductDetailsInfo(
                         productDetailsPerProduct = emptyMap(), // Provide appropriate value for your use case
@@ -39,4 +38,5 @@ class ProductViewModel @Inject constructor(
             }
         }
     }
+
 }

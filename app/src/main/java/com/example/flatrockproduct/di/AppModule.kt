@@ -1,9 +1,8 @@
 package com.example.flatrockproduct.di
 
-import com.example.flatrockproduct.data.remote.ProductApi
+import com.example.flatrockproduct.data.remote.product.ProductApi
 import com.example.flatrockproduct.data.repository.ProductRepositoryImpl
 import com.example.flatrockproduct.domain.repository.ProductRepository
-import com.example.flatrockproduct.presentation.util.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -12,7 +11,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 

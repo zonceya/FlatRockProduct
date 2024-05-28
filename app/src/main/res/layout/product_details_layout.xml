@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/productThumbnail" />
+
     <ImageView
         android:id="@+id/productThumbnail"
         android:layout_width="0dp"
@@ -49,7 +50,7 @@
         android:textAlignment="center"
         android:maxEms="20"
         android:singleLine="false"
-        android:text="\n \n \n \n"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productTitle" />

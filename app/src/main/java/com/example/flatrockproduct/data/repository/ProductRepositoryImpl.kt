@@ -2,7 +2,7 @@ package com.example.flatrockproduct.data.repository
 
 import com.example.flatrockproduct.data.mappers.toProduct
 import com.example.flatrockproduct.data.mappers.toProductDetail
-import com.example.flatrockproduct.data.remote.ProductApi
+import com.example.flatrockproduct.data.remote.product.ProductApi
 import com.example.flatrockproduct.domain.product.Product
 import com.example.flatrockproduct.domain.product.ProductDetail
 import com.example.flatrockproduct.domain.repository.ProductRepository
@@ -29,4 +29,10 @@ class ProductRepositoryImpl(
             Resource.Error(e.message ?: "An unknown error occurred.")
         }
     }
+
+    override suspend fun getCategory(category: String): Resource<ProductDetail> {
+        TODO("Not yet implemented")
+    }
+
+
 }

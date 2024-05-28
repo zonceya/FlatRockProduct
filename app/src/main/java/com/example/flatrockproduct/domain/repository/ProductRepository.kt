@@ -8,4 +8,5 @@ import retrofit2.http.Path
 interface ProductRepository  {
     suspend fun getAllProduct(): Resource<Product>
     suspend fun getProduct(@Path("id") id: Int): Resource<ProductDetail>
+    suspend fun getCategory(@Path("category") category: String): Resource<ProductDetail>
 }
