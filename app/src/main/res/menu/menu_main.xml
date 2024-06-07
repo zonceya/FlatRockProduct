@@ -16,6 +16,6 @@
     <item
         android:id="@+id/cart"
         android:icon="@drawable/ic_shopping_cart"
-        android:title="@string/favourites"
+        android:title="@string/cart"
         app:showAsAction="ifRoom" />
 </menu>

@@ -2,6 +2,8 @@ package com.example.flatrockproduct
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -18,6 +20,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.widget.SearchView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -28,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var navigationView: NavigationView
 
+    // Variables to handle double back press
+    private var backPressedOnce = false
+    private val doubleBackPressHandler = Handler(Looper.getMainLooper())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,9 +52,37 @@ class MainActivity : AppCompatActivity() {
         // Set up NavigationView
         navigationView = binding.navigationView
         setupDrawerContent(navigationView)
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Home"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Smartphones"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Furniture"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Beauty"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Groceries"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Fragrances"))
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SmartphonesFragment())
+            .commit()
         // Prepare RecyclerView
         prepareRecyclerView()
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val fragment = when (tab.position) {
+                    0 -> SmartphonesFragment()
+                    1 -> FurnitureFragment()
+                    2 -> BeautyFragment()
+                    3 -> HomeFragment()
+                    4 -> GroceriesFragment()
+                    5 -> FragrancesFragment()
+                    else -> SmartphonesFragment()
+                }
+                supportFragmentManager.beginTransaction()
+               //     .replace(R.id.fragment_container, fragment)
+              //      .commit()
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
         // Observe state changes
         viewModel.state.observe(this) { state ->
@@ -112,15 +147,25 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
-
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             true
         } else {
             super.onOptionsItemSelected(item)
         }
+    }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (backPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        this.backPressedOnce = true
+        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
+        doubleBackPressHandler.postDelayed({
+            backPressedOnce = false
+        }, 2000) // 2 seconds delay
     }
 }
