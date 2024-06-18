@@ -48,6 +48,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -77,6 +81,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-common:2.6.1")
+    implementation(kotlin("stdlib-jdk8", "1.8.10"))
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     testImplementation("junit:junit:4.13.2")
