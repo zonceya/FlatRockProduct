@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: "18"
+          java-version: '18'
           cache: 'gradle'
       - name: Set up Node.js
         uses: actions/setup-node@v3
