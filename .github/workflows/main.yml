@@ -26,7 +26,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-
+      - name: Create local.properties
+        run: echo "API_KEY=${{ secrets.API_KEY }}" >> local.properties
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
