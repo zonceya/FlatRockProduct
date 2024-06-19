@@ -24,9 +24,9 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
-               - name: Locate APK
-               id: locate-apk
-               run: echo "APK_PATH=$(find app/build/outputs/apk/debug/ -name *.apk | head -n 1)" >> $GITHUB_ENV
+      - name: Locate APK
+        id: locate-apk
+        run: echo "APK_PATH=$(find app/build/outputs/apk/debug/ -name *.apk | head -n 1)" >> $GITHUB_ENV
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
